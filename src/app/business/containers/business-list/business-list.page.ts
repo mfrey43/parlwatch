@@ -43,19 +43,24 @@ import { SearchSuggestions } from './search-suggestions';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BusinessListPage implements OnInit {
-  @ViewChild('searchBar', { static: false }) searchBar: IonSearchbar;
+  @ViewChild('searchBar', { static: false }) searchBar:
+    | IonSearchbar
+    | undefined;
 
   readonly store = inject(BusinessStore);
   readonly router = inject(Router);
   readonly platform = inject(Platform);
 
   isModalOpen = false;
-  presentingElement = null;
+  presentingElement: HTMLIonRouterOutletElement | null = null;
 
   showSuggestedSearches: boolean = false;
   suggestedSearchTerms = SearchSuggestions;
 
-  refreshOrLoadMoreEvent: InfiniteScrollCustomEvent | RefresherCustomEvent;
+  refreshOrLoadMoreEvent:
+    | InfiniteScrollCustomEvent
+    | RefresherCustomEvent
+    | undefined;
 
   constructor() {
     effect(() => {
@@ -99,7 +104,9 @@ export class BusinessListPage implements OnInit {
 
   onSuggestedSearchTopic(searchTerm: string) {
     this.showSuggestedSearches = false;
-    this.searchBar.value = searchTerm;
+    if (this.searchBar) {
+      this.searchBar.value = searchTerm;
+    }
     this.store.updateQuery({
       ...this.store.query(),
       searchTerm
@@ -111,7 +118,9 @@ export class BusinessListPage implements OnInit {
   }
 
   resetFilter() {
-    this.searchBar.value = '';
+    if (this.searchBar) {
+      this.searchBar.value = '';
+    }
     this.store.resetQuery();
   }
 

@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { Vote } from 'swissparl';
+import { Vote, Voting } from 'swissparl';
 import { catchError, first, switchMap, tap } from 'rxjs/operators';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { Subject, from, of } from 'rxjs';
+import { Subject, from, of, filter } from 'rxjs';
 import { IonicModule } from '@ionic/angular';
 import { VoteService } from '../../services/votes.service';
 import { VoteCardComponent } from '../../components/vote-card/vote-card.component';
@@ -29,10 +29,10 @@ import { ErrorScreenComponent } from '../../../shared/components/error-screen/er
   ]
 })
 export class VoteDetailPage implements OnInit {
-  vote: Vote = null;
+  vote: Vote | null = null;
   loading = true;
   error = false;
-  votingsFiltered = [];
+  votingsFiltered: Voting[] = [];
 
   trigger$ = new Subject<void>();
   voteFilterControl = new FormControl('all');
@@ -75,23 +75,28 @@ export class VoteDetailPage implements OnInit {
           return;
         }
         this.vote = vote;
-        this.votingsFiltered = vote.Votings;
+        this.votingsFiltered = vote.Votings || [];
         this.loading = false;
       });
 
     this.voteFilterControl.valueChanges
-      .pipe(untilDestroyed(this))
+      .pipe(
+        untilDestroyed(this),
+        filter((value) => value !== null)
+      )
       .subscribe((value) => {
         if (value === 'all') {
-          this.votingsFiltered = this.vote.Votings;
+          this.votingsFiltered = this.vote?.Votings || [];
         } else {
-          this.votingsFiltered = this.vote.Votings.filter((voting) => {
-            return {
-              yes: () => voting.Decision === 1,
-              no: () => voting.Decision === 2,
-              'no-vote': () => voting.Decision !== 1 && voting.Decision !== 2
-            }[value]();
-          });
+          this.votingsFiltered =
+            this.vote?.Votings?.filter((voting) => {
+              let decisionObj = {
+                yes: () => voting.Decision === 1,
+                no: () => voting.Decision === 2,
+                'no-vote': () => voting.Decision !== 1 && voting.Decision !== 2
+              };
+              return decisionObj[value as keyof typeof decisionObj]();
+            }) || [];
         }
       });
   }
@@ -111,6 +116,6 @@ export class VoteDetailPage implements OnInit {
   }
 
   goToBusiness() {
-    this.router.navigate(['business', 'detail', this.vote.BusinessNumber]);
+    this.router.navigate(['business', 'detail', this.vote?.BusinessNumber]);
   }
 }

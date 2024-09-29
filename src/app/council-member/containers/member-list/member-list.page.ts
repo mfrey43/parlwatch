@@ -37,19 +37,24 @@ import {
   ]
 })
 export class MemberListPage implements OnInit {
-  @ViewChild('searchBar', { static: false }) searchBar: IonSearchbar;
+  @ViewChild('searchBar', { static: false }) searchBar:
+    | IonSearchbar
+    | undefined;
 
   readonly store = inject(CouncilMemberStore);
   readonly router = inject(Router);
 
   isModalOpen = false;
-  presentingElement = null;
+  presentingElement: HTMLIonRouterOutletElement | null = null;
   activeFilter: CouncilMemberFilterForm = {
     councils: [],
     inactiveMembers: false
   };
 
-  refreshOrLoadMoreEvent: InfiniteScrollCustomEvent | RefresherCustomEvent;
+  refreshOrLoadMoreEvent:
+    | InfiniteScrollCustomEvent
+    | RefresherCustomEvent
+    | undefined;
 
   constructor() {
     effect(() => {
@@ -83,7 +88,9 @@ export class MemberListPage implements OnInit {
   }
 
   resetFilter() {
-    this.searchBar.value = '';
+    if (this.searchBar) {
+      this.searchBar.value = '';
+    }
     this.store.resetQuery();
   }
 

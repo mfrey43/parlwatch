@@ -13,7 +13,7 @@ import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { filter, pipe, switchMap, tap } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { tapResponse } from '@ngrx/operators';
-import * as _ from 'lodash';
+import { uniqBy } from 'lodash-es';
 import { BusinessFilter, BusinessService } from './services/business.service';
 
 type BusinessState = {
@@ -96,7 +96,7 @@ export const BusinessStore = signalStore(
         isLoadingMore: true,
         query: {
           ...state.query,
-          skip: state.query.skip + state.query.top
+          skip: state.query.skip! + state.query.top
         }
       }));
     },
@@ -167,9 +167,7 @@ export const BusinessStore = signalStore(
         ),
         switchMap(() =>
           businessService.getBusinessStatus().pipe(
-            map((businessStates) =>
-              _.uniqBy(businessStates, 'BusinessStatusId')
-            ), // TODO move _.uniqBy to service
+            map((businessStates) => uniqBy(businessStates, 'BusinessStatusId')), // TODO move _.uniqBy to service
             tapResponse({
               next: (businessStatuses) =>
                 patchState(store, { businessStatuses }),

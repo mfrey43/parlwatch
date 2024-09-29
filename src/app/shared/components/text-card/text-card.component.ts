@@ -9,9 +9,9 @@ import { SafeHtmlPipe } from '../../pipes/safe-html.pipe';
   imports: [SafeHtmlPipe]
 })
 export class TextCardComponent {
-  @Input() title: string;
-  @Input() subtitle: string;
-  @Input() HtmlText: string;
+  @Input() title: string | undefined;
+  @Input() subtitle: string | undefined;
+  @Input() HtmlText: string | undefined;
 
   constructor() {}
 }

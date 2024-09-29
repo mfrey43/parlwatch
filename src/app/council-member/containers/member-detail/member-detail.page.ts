@@ -43,6 +43,8 @@ export class MemberDetailPage implements OnInit {
 
   getMandatesAsHtmlList() {
     const member = this.store.selectedCouncilMember();
+    if (!member) return '';
+
     let mandates = '';
     if (member.Mandates) {
       mandates =
@@ -68,6 +70,8 @@ export class MemberDetailPage implements OnInit {
 
   getAdditionalActivitiesAsHtmlList() {
     const member = this.store.selectedCouncilMember();
+    if (!member) return '';
+
     let additionalActivities = '';
     if (member.AdditionalActivity) {
       additionalActivities =

@@ -31,7 +31,7 @@ export class CouncilMemberService {
     council?: number[];
     showInactive?: boolean;
   }): Observable<MemberCouncil[]> {
-    var councilFilterArray = [];
+    var councilFilterArray: { Council: number }[] = [];
     if (council && council.length > 0) {
       council.forEach((id) => {
         councilFilterArray.push({ Council: id });
@@ -39,7 +39,7 @@ export class CouncilMemberService {
     }
 
     const filter: {
-      eq: { Language?: string; Active?: boolean }[];
+      eq: { Language?: string; Active?: boolean; Council?: number }[];
       substringOf?: {
         LastName?: string;
         FirstName?: string;

@@ -20,10 +20,12 @@ export class SafeHtmlPipe implements PipeTransform {
       if (allowedTags.indexOf(element.tagName.toLowerCase()) === -1) {
         // If the tag is not in the allowed list, replace it with its own innerHTML
         const parent = element.parentNode;
-        while (element.firstChild) {
-          parent.insertBefore(element.firstChild, element);
+        if (parent) {
+          while (element.firstChild) {
+            parent.insertBefore(element.firstChild, element);
+          }
+          parent.removeChild(element);
         }
-        parent.removeChild(element);
       }
     }
 

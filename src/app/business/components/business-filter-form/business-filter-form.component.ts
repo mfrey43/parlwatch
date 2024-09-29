@@ -25,18 +25,20 @@ export class BusinessFilterFormComponent {
   businessTypeCheckboxes = computed(() =>
     this.store.businessTypes().map((type) => ({
       ...type,
-      checked: this.store.query().businessTypes.some((t) => t.ID === type.ID)
+      checked:
+        this.store.query().businessTypes?.some((t) => t.ID === type.ID) || false
     }))
   );
 
   businessStatusCheckboxes = computed(() =>
     this.store.businessStatuses().map((status) => ({
       ...status,
-      checked: this.store
-        .query()
-        .businessStatuses.some(
-          (s) => s.BusinessStatusId === status.BusinessStatusId
-        )
+      checked:
+        this.store
+          .query()
+          .businessStatuses?.some(
+            (s) => s.BusinessStatusId === status.BusinessStatusId
+          ) || false
     }))
   );
 

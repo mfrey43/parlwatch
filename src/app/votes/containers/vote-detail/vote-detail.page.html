@@ -12,7 +12,7 @@
 
 <ion-content class="ion-padding">
   @if (!loading) {
-    @if (!error) {
+    @if (!error && vote) {
       <app-vote-card [vote]="vote">
         <ion-button
           expand="block"

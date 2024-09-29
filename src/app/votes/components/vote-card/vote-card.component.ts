@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, input, OnInit } from '@angular/core';
 import { Vote, Voting } from 'swissparl';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { map } from 'rxjs/operators';
@@ -15,7 +15,7 @@ import { ODataDateTimePipe } from '../../../shared/pipes/o-data-date-time.pipe';
   imports: [TextCardComponent, ODataDateTimePipe]
 })
 export class VoteCardComponent implements OnInit {
-  @Input() vote: Vote;
+  vote = input.required<Vote>();
 
   voteCount: { decision: string; percentage: number }[] = [];
 
@@ -23,7 +23,7 @@ export class VoteCardComponent implements OnInit {
 
   ngOnInit() {
     this.voteService
-      .getVotings(this.vote.ID)
+      .getVotings(this.vote().ID!)
       .pipe(
         untilDestroyed(this),
         map((votings) =>
@@ -40,7 +40,7 @@ export class VoteCardComponent implements OnInit {
   getVoteCountByDecision(votings: Voting[]): { [key: string]: number } {
     const accumulator = votings.reduce(
       (acc, voting) => {
-        const vote = { '1': 'yes', '2': 'no' }[voting.Decision] || 'no-vote';
+        const vote = { '1': 'yes', '2': 'no' }[voting.Decision!] || 'no-vote';
         acc[vote] = (acc[vote] || 0) + 1;
         return acc;
       },

@@ -1,63 +1,63 @@
-@if (business.Description) {
+@if (business().Description) {
   <app-text-card
     [title]="'Beschreibung'"
-    [HtmlText]="business.Description"
+    [HtmlText]="business().Description"
   ></app-text-card>
 }
 
-@if (business.InitialSituation) {
+@if (business().InitialSituation) {
   <app-text-card
     [title]="'Ausgangslage'"
-    [HtmlText]="business.InitialSituation"
+    [HtmlText]="business().InitialSituation"
   ></app-text-card>
 }
 
-@if (business.Proceedings) {
+@if (business().Proceedings) {
   <app-text-card
     [title]="'Verhandlungen'"
-    [HtmlText]="business.Proceedings"
+    [HtmlText]="business().Proceedings"
   ></app-text-card>
 }
 
-@if (business.DraftText) {
+@if (business().DraftText) {
   <app-text-card
     [title]="'Entwurf'"
-    [HtmlText]="business.DraftText"
+    [HtmlText]="business().DraftText"
   ></app-text-card>
 }
 
-@if (business.SubmittedText) {
+@if (business().SubmittedText) {
   <app-text-card
     [title]="'Eingereichter Text'"
-    [HtmlText]="business.SubmittedText"
+    [HtmlText]="business().SubmittedText"
   ></app-text-card>
 }
 
-@if (business.ReasonText) {
+@if (business().ReasonText) {
   <app-text-card
     [title]="'Begründung'"
-    [HtmlText]="business.ReasonText"
+    [HtmlText]="business().ReasonText"
   ></app-text-card>
 }
 
-@if (business.DocumentationText) {
+@if (business().DocumentationText) {
   <app-text-card
     [title]="'Dokumentation'"
-    [HtmlText]="business.DocumentationText"
+    [HtmlText]="business().DocumentationText"
   ></app-text-card>
 }
 
-@if (business.MotionText) {
+@if (business().MotionText) {
   <app-text-card
     [title]="'Motionstext'"
-    [HtmlText]="business.MotionText"
+    [HtmlText]="business().MotionText"
   ></app-text-card>
 }
 
-@if (business.FederalCouncilResponseText) {
+@if (business().FederalCouncilResponseText) {
   <app-text-card
     [title]="'Stellungnahme des Bundesrates'"
-    [HtmlText]="business.FederalCouncilResponseText"
+    [HtmlText]="business().FederalCouncilResponseText"
   ></app-text-card>
 }
 

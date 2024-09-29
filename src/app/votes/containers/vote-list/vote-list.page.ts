@@ -3,7 +3,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { catchError, first, tap, switchMap } from 'rxjs/operators';
 import { Vote } from 'swissparl';
 import { BehaviorSubject, Subject, combineLatest, of } from 'rxjs';
-import { IonicModule, IonSearchbar } from '@ionic/angular';
+import {
+  IonicModule,
+  IonSearchbar,
+  RefresherCustomEvent
+} from '@ionic/angular';
 import { VoteService } from '../../services/votes.service';
 import { HideKeyboardOnEnterDirective } from '../../../shared/directives/hide-keyboard-on-enter.directive';
 import { VoteCardComponent } from '../../components/vote-card/vote-card.component';
@@ -36,7 +40,9 @@ export class VoteListPage implements OnInit {
   searchTerm$ = new BehaviorSubject<string>('');
   trigger$ = new Subject<void>();
 
-  @ViewChild('searchBar', { static: false }) searchBar: IonSearchbar;
+  @ViewChild('searchBar', { static: false }) searchBar:
+    | IonSearchbar
+    | undefined;
 
   constructor(
     private voteService: VoteService,
@@ -92,7 +98,9 @@ export class VoteListPage implements OnInit {
         queryParams: { BusinessShortNumber: null },
         queryParamsHandling: 'merge'
       });
-      this.searchBar.value = businessShortNumber.toString();
+      if (this.searchBar) {
+        this.searchBar.value = businessShortNumber.toString();
+      }
       this.searchTerm$.next(businessShortNumber.toString());
     }
   }
@@ -107,7 +115,9 @@ export class VoteListPage implements OnInit {
 
   resetFilter() {
     this.searchTerm$.next('');
-    this.searchBar.value = '';
+    if (this.searchBar) {
+      this.searchBar.value = '';
+    }
   }
 
   distanceReached(event: any) {
@@ -121,7 +131,7 @@ export class VoteListPage implements OnInit {
     });
   }
 
-  handleRefresh(event) {
+  handleRefresh(event: RefresherCustomEvent) {
     this.skip = 0;
     this.fetchVotes().subscribe((votes) => {
       if (votes === null) {

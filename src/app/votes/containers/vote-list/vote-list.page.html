@@ -24,7 +24,7 @@
         @for (vote of votes; track vote) {
           <app-vote-card
             [vote]="vote"
-            (click)="onClickVote(vote.ID)"
+            (click)="onClickVote(vote.ID!)"
           ></app-vote-card>
         }
         <ion-infinite-scroll

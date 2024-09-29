@@ -12,7 +12,7 @@ import { IonicModule } from '@ionic/angular';
   imports: [IonicModule]
 })
 export class LoadingScreenComponent implements OnInit {
-  currentFact: string;
+  currentFact: string = '';
   facts: string[] = [
     'Das Schweizer Parlament ist ein Zweikammersystem, bestehend aus dem Nationalrat und dem Ständerat.',
     'Der Nationalrat hat 200 Mitglieder, während der Ständerat 46 Mitglieder hat.',

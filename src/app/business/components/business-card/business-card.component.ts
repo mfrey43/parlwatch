@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { Business } from 'swissparl';
 import { TextCardComponent } from '../../../shared/components/text-card/text-card.component';
 import { ODataDateTimePipe } from '../../../shared/pipes/o-data-date-time.pipe';
@@ -11,12 +11,12 @@ import { ODataDateTimePipe } from '../../../shared/pipes/o-data-date-time.pipe';
   imports: [TextCardComponent, ODataDateTimePipe]
 })
 export class BusinessCardComponent {
-  @Input() business: Business;
+  business = input.required<Business>();
 
   constructor() {}
 
   getTagNames(): string[] {
-    if (!this.business.TagNames) return [];
-    return this.business.TagNames.split('|');
+    if (!this.business().TagNames) return [];
+    return this.business().TagNames?.split('|') || [];
   }
 }

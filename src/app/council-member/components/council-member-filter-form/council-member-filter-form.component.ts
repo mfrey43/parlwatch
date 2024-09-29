@@ -23,7 +23,7 @@ export type CouncilMemberFilterForm = {
   standalone: true
 })
 export class CouncilMemberFilterFormComponent implements OnInit {
-  preset = input<CouncilMemberFilterForm>();
+  preset = input.required<CouncilMemberFilterForm>();
 
   councilList = AllCouncils;
 

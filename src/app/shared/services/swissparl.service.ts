@@ -35,7 +35,7 @@ interface Config {
 export class SwissParlService {
   constructor() {}
 
-  fetchCollection<T>(
+  fetchCollection<T extends SwissParlEntity>(
     collection: keyof typeof Collection,
     options: QueryOptions<T>,
     config?: Config

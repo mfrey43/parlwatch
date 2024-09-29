@@ -25,24 +25,35 @@ export class BusinessService {
     businessTypes,
     businessStatuses
   }: BusinessFilter): Observable<Business[]> {
-    const businessTypeIds = businessTypes.map((bt) => bt.ID);
-    const businessTypeFilterArray = [];
-    if (businessTypeIds && businessTypes.length > 0) {
-      businessTypeIds.forEach((id) => {
-        businessTypeFilterArray.push({ BusinessType: id });
-      });
+    const businessTypeIds = businessTypes?.map((bt) => bt.ID);
+    const businessTypeFilterArray: { BusinessType: number }[] = [];
+    if (businessTypeIds && businessTypes && businessTypes.length > 0) {
+      businessTypeIds
+        .filter((id) => id !== undefined)
+        .forEach((id) => {
+          businessTypeFilterArray.push({ BusinessType: id });
+        });
     }
 
-    const businessStatusIds = businessStatuses.map((bs) => bs.BusinessStatusId);
-    const businessStatusFilterArray = [];
-    if (businessStatusIds && businessStatuses.length > 0) {
-      businessStatusIds.forEach((id) => {
-        businessStatusFilterArray.push({ BusinessStatus: id });
-      });
+    const businessStatusIds = businessStatuses?.map(
+      (bs) => bs.BusinessStatusId
+    );
+    const businessStatusFilterArray: { BusinessStatus: number }[] = [];
+    if (businessStatusIds && businessStatuses && businessStatuses.length > 0) {
+      businessStatusIds
+        .filter((id) => id !== undefined)
+        .forEach((id) => {
+          businessStatusFilterArray.push({ BusinessStatus: id });
+        });
     }
 
     const filter: {
-      eq: { Language?: string; ID?: number }[];
+      eq: {
+        Language?: string;
+        ID?: number;
+        BusinessType?: number;
+        BusinessStatus?: number;
+      }[];
       ne: { BusinessShortNumber: string }[];
       substringOf?: {
         Title: string;

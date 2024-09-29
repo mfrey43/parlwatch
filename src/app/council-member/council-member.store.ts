@@ -104,7 +104,7 @@ export const CouncilMemberStore = signalStore(
         isLoadingMore: true,
         query: {
           ...state.query,
-          skip: state.query.skip + state.query.top
+          skip: state.query.skip! + state.query.top
         }
       }));
     },
