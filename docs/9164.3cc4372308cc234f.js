@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkapp=self.webpackChunkapp||[]).push([[9164],{9164:(s,t,n)=>{n.r(t),n.d(t,{VOTE_ROUTES:()=>l});const l=[{path:"detail/:id",loadComponent:()=>Promise.all([n.e(8209),n.e(2076),n.e(675)]).then(n.bind(n,9973)).then(d=>d.VoteDetailPage)}]}}]);

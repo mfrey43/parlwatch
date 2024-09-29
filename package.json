@@ -9,6 +9,7 @@
     "start": "ng serve",
     "build": "ng build",
     "build:prd": "ng build --configuration=production",
+    "build:prd:github": "ng build --configuration=production --output-path docs --base-href /parlwatch/",
     "lint": "ng lint && npx prettier -c \"src/**/*.ts\"",
     "lint:fix": "ng lint --fix",
     "prettier:fix": "npx prettier --write \"src/**/*.ts\""

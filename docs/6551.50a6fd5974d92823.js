@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkapp=self.webpackChunkapp||[]).push([[6551],{6551:(S,s,n)=>{n.r(s),n.d(s,{BUSINESS_ROUTES:()=>l});const l=[{path:"detail/:id",loadComponent:()=>Promise.all([n.e(8209),n.e(5083),n.e(1882),n.e(2076),n.e(931)]).then(n.bind(n,931)).then(t=>t.BusinessDetailPage)}]}}]);

@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkapp=self.webpackChunkapp||[]).push([[5457],{5457:(s,l,n)=>{n.r(l),n.d(l,{COUNCIL_MEMBER_ROUTES:()=>t});const t=[{path:"detail/:id",loadComponent:()=>Promise.all([n.e(8209),n.e(1542),n.e(3674)]).then(n.bind(n,3674)).then(d=>d.MemberDetailPage)}]}}]);
