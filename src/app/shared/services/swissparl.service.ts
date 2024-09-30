@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of, retry, switchMap } from 'rxjs';
-import { fetchCollection } from 'swissparl';
-import { Collection, SwissParlEntity } from 'swissparl/dist/models';
+import { fetchCollection, Collection, SwissParlEntity } from 'swissparl';
 
 type FilterOptions<T> =
   | { eq: T[] }
